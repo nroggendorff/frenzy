@@ -3,8 +3,11 @@ body {
 }
 
 .App {
-  text-align: center;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }
 
 .username {
@@ -22,14 +25,6 @@ body {
 
 td {
   vertical-align: bottom;
-}
-
-.sign-in-anon {
-  margin-bottom: 100px;
-}
-
-.sign-in-google {
-  margin-top: 100px;
 }
 
 .gsi-material-button {
@@ -64,6 +59,10 @@ td {
   max-width: 400px;
   min-width: min-content;
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 .gsi-material-button .gsi-material-button-icon {
   height: 20px;
@@ -141,7 +140,7 @@ td {
 
 .App header {
   background-color: #000000;
-  height: 10vh;
+  height: 12vh;
   min-height: 50px;
   color: white;
   position: fixed;
