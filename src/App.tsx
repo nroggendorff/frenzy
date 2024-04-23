@@ -42,7 +42,7 @@ function App() {
 
   return (
     <div className="App">
-      <header>
+      <header className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
         <h1>Frenzy</h1>
         <SignOut />
       </header>
@@ -139,6 +139,9 @@ function SignOut() {
 }
 
 function ChatRoom() {
+  const [isTyping, setIsTyping] = useState(false);
+  const [isFileSelected, setIsFileSelected] = useState(false);
+
   const dummy = useRef<HTMLDivElement>(null);
   const messagesRef = collection(firestore, "messages");
 
@@ -203,14 +206,35 @@ function ChatRoom() {
 
     setFormValue("");
     setFile(null);
+    setIsTyping(false);
+    setIsFileSelected(false);
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const selectedFile = e.target.files[0];
       setFile(selectedFile);
+      setIsFileSelected(true);
     }
   };
+
+  const sendIcon = () => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="feather feather-send"
+    >
+      <line x1="22" y1="2" x2="11" y2="13"></line>
+      <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+    </svg>
+  );
 
   return (
     <>
@@ -222,22 +246,41 @@ function ChatRoom() {
       </main>
       <form onSubmit={sendMessage}>
         <label className="uploadFile">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="feather feather-upload"
-          >
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-            <polyline points="17 8 12 3 7 8"></polyline>
-            <line x1="12" y1="3" x2="12" y2="15"></line>
-          </svg>
+          {isTyping ? (
+            <div className="arrow-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                className="feather feather-chevron-right"
+              >
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </div>
+          ) : (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="feather feather-upload"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+          )}
           <input
             type="file"
             onChange={handleFileChange}
@@ -247,26 +290,19 @@ function ChatRoom() {
         </label>
         <input
           value={formValue}
-          onChange={(e) => setFormValue(e.target.value)}
+          onChange={(e) => {
+            setFormValue(e.target.value);
+            setIsTyping(e.target.value.length > 0);
+          }}
           placeholder="Message"
         />
-        <button type="submit" disabled={!formValue}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="feather feather-send"
-          >
-            <line x1="22" y1="2" x2="11" y2="13"></line>
-            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-          </svg>
-        </button>
+        {isTyping ? (
+          <button type="submit" disabled={!formValue}>
+            {sendIcon()}
+          </button>
+        ) : (
+          isFileSelected && <button type="submit">{sendIcon()}</button>
+        )}
       </form>
     </>
   );
