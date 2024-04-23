@@ -19,6 +19,14 @@ body {
   text-align: left;
 }
 
+.timestamp {
+  max-width: 500px;
+  font-size: small;
+  position: relative;
+  margin-bottom: -10px;
+  text-align: left;
+}
+
 .message-content.mentioned {
   background-color: #ffe600;
 }

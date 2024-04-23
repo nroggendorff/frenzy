@@ -22,6 +22,7 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import firebase from "firebase/compat/app";
+import { formatRelative } from 'date-fns';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDGBVQhDrZa_VeMxiqxb-q83_pc-fIKlQ8",
@@ -284,10 +285,31 @@ function ChatMessage(props: {
     photoURL: string;
     username: string;
     imageUrl?: string;
+    createdAt: firebase.firestore.Timestamp;
   };
 }) {
-  const { text, uid, photoURL, username, imageUrl } = props.message;
+  const { text, uid, photoURL, username, imageUrl, createdAt } = props.message;
   const messageClass = uid === auth.currentUser?.uid ? "sent" : "received";
+
+  const formatTimestamp = (timestamp: firebase.firestore.Timestamp) => {
+    const date = timestamp.toDate();
+    const now = new Date();
+    const diffSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+
+    if (diffSeconds < 60) {
+      return 'Just now';
+    } else if (diffSeconds < 3600) {
+      return `${Math.floor(diffSeconds / 60)} minutes ago`;
+    } else if (diffSeconds < 86400) {
+      return `${Math.floor(diffSeconds / 3600)} hours ago`;
+    } else if (diffSeconds < 172800) {
+      return 'Yesterday';
+    } else if (diffSeconds < 604800) {
+      return formatRelative(date, now);
+    } else {
+      return date.toLocaleDateString();
+    }
+  };
 
   return (
     <div className={`message ${messageClass}`}>
@@ -302,7 +324,14 @@ function ChatMessage(props: {
               )}
             </td>
             <td>
-              {messageClass != "sent" && <p className="username">{username}</p>}
+              {messageClass !== "sent" && (
+                <div className="user-info" style={{ display: 'flex', alignItems: 'center' }}>
+                  <p className="username">{username}</p>
+                  <p className="timestamp" style={{ color: 'gray', marginLeft: '5px' }}>
+                    {formatTimestamp(createdAt)}
+                  </p>
+                </div>
+              )}
               {text && <p className="message-content">{text}</p>}
             </td>
           </tr>
