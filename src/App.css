@@ -194,6 +194,11 @@ main::-webkit-scrollbar-thumb {
 }
 
 form {
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  background-color: #2f2f2f;
   height: 10vh;
   position: fixed;
   bottom: 0;
@@ -212,7 +217,9 @@ form {
   align-items: center;
   justify-content: center;
   position: relative;
-  background-color: #0b93f6;
+}
+
+.messageinput {
 }
 
 input {
@@ -226,7 +233,7 @@ input {
   padding: 0 10px;
 }
 
-.sign-in {
+.textinput .sign-in {
   position: absolute;
   top: 50%;
   left: 50%;

@@ -305,7 +305,7 @@ function ChatMessage(props: {
             </td>
             <td>
               {messageClass != "sent" && <p className="username">{username}</p>}
-              <p className="message-content">{text}</p>
+              {text && <p className="message-content">{text}</p>}
             </td>
           </tr>
           <tr>
