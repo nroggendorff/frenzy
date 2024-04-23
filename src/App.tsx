@@ -4,7 +4,6 @@ import { initializeApp } from "firebase/app";
 import {
   getAuth,
   GoogleAuthProvider,
-  signInAnonymously,
   signInWithPopup,
   signOut,
 } from "firebase/auth";
@@ -57,10 +56,6 @@ function SignIn() {
     signInWithPopup(auth, provider);
   };
 
-  const signInAnon = () => {
-    signInAnonymously(auth);
-  };
-
   return (
     <>
       <button
@@ -97,30 +92,6 @@ function SignIn() {
           </div>
           <span className="gsi-material-button-contents">
             Continue with Google
-          </span>
-        </div>
-      </button>
-      <button className="gsi-material-button sign-in-anon" onClick={signInAnon}>
-        <div className="gsi-material-button-content-wrapper">
-          <div className="gsi-material-button-icon">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              className="feather feather-user"
-            >
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-              <circle cx="12" cy="7" r="4"></circle>
-            </svg>
-          </div>
-          <span className="gsi-material-button-contents">
-            Continue Anonymously
           </span>
         </div>
       </button>
