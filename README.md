@@ -1,15 +1,12 @@
 # Frenzy
 
-Frenzy is a real-time chat application built with [Insert relevant technologies, e.g., Flask, Socket.IO, React]. It allows users to create chat rooms, invite friends, and have conversations in real-time.
+Frenzy is a real-time chat application built with React.
 
 ## Features
 
 - Real-time messaging
-- Create and join chat rooms
+- Join the chat room
 - User authentication (login/signup)
-- View online users
-- Send emojis and attachments (images, documents)
-- Push notifications (optional)
 
 ## Installation
 
