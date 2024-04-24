@@ -1,27 +1,47 @@
-# React + TypeScript + Vite
+# Frenzy
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frenzy is a real-time chat application built with [Insert relevant technologies, e.g., Flask, Socket.IO, React]. It allows users to create chat rooms, invite friends, and have conversations in real-time.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Real-time messaging
+- Create and join chat rooms
+- User authentication (login/signup)
+- View online users
+- Send emojis and attachments (images, documents)
+- Push notifications (optional)
 
-## Expanding the ESLint configuration
+## Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+1. Clone the repository: `git clone https://github.com/nroggendorff/frenzy.git`
+2. Install dependencies: `cd frenzy && npm install`
 
-- Configure the top-level `parserOptions` property like this:
+## Usage
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+### Development
+
+To start the development server, clone the repository run the following command:
+
+```
+npm run dev
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+The client will be available at `http://localhost:5173`.
+
+### Production
+
+To build the production version of the application, clone the repository run the following command:
+
+```
+npm run build
+```
+
+the app will be available in `dist/`
+
+## Contributing
+
+Contributions are welcome! Please feel free to open a pull request.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
