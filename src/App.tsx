@@ -342,7 +342,7 @@ function ChatMessage(props: {
         )}
         <tr>
           <td>
-            {imageUrl && messageClass !== "sent" && (
+            {messageClass !== "sent" && text && !imageUrl && (
               <img className="pfp" src={photoURL} alt={username} />
             )}
           </td>
@@ -350,7 +350,7 @@ function ChatMessage(props: {
         </tr>
         <tr>
           <td>
-            {!imageUrl || messageClass === "sent" ? null : (
+            {imageUrl && messageClass !== "sent" && (
               <img className="pfp" src={photoURL} alt={username} />
             )}
           </td>
