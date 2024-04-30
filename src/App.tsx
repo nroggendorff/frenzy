@@ -22,7 +22,7 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import firebase from "firebase/compat/app";
-import { formatRelative } from 'date-fns';
+import { formatRelative } from "date-fns";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDGBVQhDrZa_VeMxiqxb-q83_pc-fIKlQ8",
@@ -217,7 +217,9 @@ function ChatRoom() {
         <div ref={dummy}></div>
       </main>
       <form onSubmit={sendMessage}>
-        {isTyping && (<label className="uploadFile"><svg
+        {isTyping && (
+          <label className="uploadFile">
+            <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
@@ -230,36 +232,39 @@ function ChatRoom() {
               className="feather feather-chevron-right"
             >
               <polyline points="9 18 15 12 9 6"></polyline>
-            </svg><button
+            </svg>
+            <button
               onClick={() => setIsTyping(!isTyping)}
               style={{ display: "none" }}
-            /></label>)}
+            />
+          </label>
+        )}
         {!isTyping && (
-            <label className="uploadFile">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="feather feather-upload"
-              >
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                <polyline points="17 8 12 3 7 8"></polyline>
-                <line x1="12" y1="3" x2="12" y2="15"></line>
-              </svg>
+          <label className="uploadFile">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="feather feather-upload"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
             <input
               type="file"
               onChange={handleFileChange}
               accept="image/*"
               style={{ display: "none" }}
             />
-        </label>
-          )}
+          </label>
+        )}
         <input
           value={formValue}
           onChange={(e) => {
@@ -299,13 +304,13 @@ function ChatMessage(props: {
     const diffSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
 
     if (diffSeconds < 60) {
-      return 'Just now';
+      return "Just now";
     } else if (diffSeconds < 3600) {
       return `${Math.floor(diffSeconds / 60)} minutes ago`;
     } else if (diffSeconds < 86400) {
       return `${Math.floor(diffSeconds / 3600)} hours ago`;
     } else if (diffSeconds < 172800) {
-      return 'Yesterday';
+      return "Yesterday";
     } else if (diffSeconds < 604800) {
       return formatRelative(date, now);
     } else {
@@ -316,34 +321,45 @@ function ChatMessage(props: {
   return (
     <div className={`message ${messageClass}`}>
       <table>
-        <td>
-          <tr>
-            <td>
-              {messageClass !== "sent" && (
-                <td>
-                  <img className="pfp" src={photoURL} alt={username} />
-                </td>
-              )}
-            </td>
-            <td>
-              {messageClass !== "sent" && (
-                <div className="user-info" style={{ display: 'flex', alignItems: 'center' }}>
-                  <p className="username">{username}</p>
-                  <p className="timestamp" style={{ color: 'gray', marginLeft: '5px' }}>
-                    {formatTimestamp(createdAt)}
-                  </p>
-                </div>
-              )}
-              {text && <p className="message-content">{text}</p>}
-            </td>
-          </tr>
+        {messageClass !== "sent" && (
           <tr>
             <td></td>
             <td>
-              {imageUrl && <img className="uploadedPhoto" src={imageUrl} />}
+              <div
+                className="user-info"
+                style={{ display: "flex", alignItems: "center" }}
+              >
+                <p className="username">{username}</p>
+                <p
+                  className="timestamp"
+                  style={{ color: "gray", marginLeft: "5px" }}
+                >
+                  {formatTimestamp(createdAt)}
+                </p>
+              </div>
             </td>
           </tr>
-        </td>
+        )}
+        <tr>
+          <td>
+            {imageUrl && messageClass !== "sent" && (
+              <img className="pfp" src={photoURL} alt={username} />
+            )}
+          </td>
+          <td>{text && <p className="message-content">{text}</p>}</td>
+        </tr>
+        <tr>
+          <td>
+            {!imageUrl || messageClass === "sent" ? null : (
+              <img className="pfp" src={photoURL} alt={username} />
+            )}
+          </td>
+          {imageUrl && (
+            <td>
+              <img className="uploadedPhoto" src={imageUrl} />
+            </td>
+          )}
+        </tr>
       </table>
     </div>
   );
