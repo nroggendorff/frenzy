@@ -43,7 +43,7 @@ If you're super sexy and cool (like me) you can build this directly to github pa
 npm run deploy
 ```
 
-The app will be available at `{username}.github.io/frenzy`
+The app will be available at `{username}.github.io/frenzy/`
 
 ## Contributing
 
