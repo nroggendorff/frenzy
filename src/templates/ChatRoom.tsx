@@ -67,10 +67,6 @@ function ChatRoom() {
   const [formValue, setFormValue] = useState("");
   const [file, setFile] = useState<File | null>(null);
 
-  useEffect(() => {
-    dummy.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
-
   const sendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     const { uid, photoURL, displayName } = auth.currentUser!;
@@ -131,10 +127,22 @@ function ChatRoom() {
     </svg>
   );
 
+  const [reversedMessages, setReversedMessages] = useState<any[]>([]);
+
+  useEffect(() => {
+    if (messages) {
+      setReversedMessages(messages.reverse());
+    }
+  }, [messages]);
+
+  useEffect(() => {
+    dummy.current?.scrollIntoView({ behavior: "smooth" });
+  }, [reversedMessages]);
+
   return (
     <>
       <main>
-        {messages?.reverse().map((msg) => (
+        {reversedMessages?.map((msg) => (
           <ChatMessage key={msg.id} message={msg} />
         ))}
         <div ref={dummy}></div>
