@@ -18,7 +18,7 @@ const auth = getAuth(app);
 function SignOut() {
   return (
     auth.currentUser && (
-      <button className="sign-out" onClick={() => signOut(auth)}>
+      <button className="sign-out btn-danger" onClick={() => signOut(auth)}>
         Sign Out
       </button>
     )
