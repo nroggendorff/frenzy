@@ -35,6 +35,16 @@ npm run build
 
 the app will be available in `dist/`
 
+### Deployment
+
+If you're super sexy and cool (like me) you can build this directly to github pages with:
+
+```
+npm run deploy
+```
+
+The app will be available at `{username}.github.io/frenzy/`
+
 ## Contributing
 
 Contributions are welcome! Please feel free to open a pull request.
