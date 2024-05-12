@@ -277,6 +277,19 @@ li {
   text-align: center;
 }
 
+.reply {
+  border-radius: 100%;
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 15%;
+  background-color: transparent;
+}
+
+.reply:hover {
+  border-color: #404040;
+  background-color: #282c34;
+}
+
 .message {
   display: flex;
   align-items: center;
